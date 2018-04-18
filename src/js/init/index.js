@@ -26,12 +26,16 @@ export default function() {
     this.itemText = document.querySelector('.p-zoom-slider__text');
     this.pager = document.querySelector('.p-zoom-slider__pager');
     this.pagerItems = [];
+    this.timerId = null;
+    this.transition = false;
 
     this.init = function() {
       this.initPager();
       this.initImage();
-      this.setCurrent();
       this.on();
+      setTimeout(()=> {
+        this.setCurrent();
+      }, 100);
     };
 
     this.initImage = function() {
@@ -54,10 +58,18 @@ export default function() {
     };
 
     this.switchNext = function() {
+      if (this.transition) {
+        return;
+      }
       var index = this.index;
-      this.imageItems[index].addEventListener('animationend', ()=> {
-      this.imageItems[index].classList.remove('is-animate');
-      });
+      this.imageItems[index].style.zIndex = '1';
+      setTimeout(()=> {
+        this.imageItems[index].style.transition = '';
+        this.imageItems[index].style.opacity = '';
+        this.imageItems[index].style.transform = '';
+        this.imageItems[index].classList.remove('is-visible');
+      }, 800);
+
 
       this.index ++;
       if (this.index === 3) {
@@ -72,7 +84,11 @@ export default function() {
       for (var i = 0; i < this.itemLength; i++) {
         if ( i === this.index ) {
           this.pagerItems[i].classList.add('is-current');
-          this.imageItems[i].classList.add('is-animate');
+          this.imageItems[i].style.transition = 'transform 8000ms ease-out, opacity 800ms';
+          this.imageItems[i].style.opacity = '1';
+          this.imageItems[i].style.transform = 'scale(1.2, 1.2)';
+          this.imageItems[i].style.zIndex = '2';
+          this.imageItems[i].classList.add('is-visible');
         } else {
           this.pagerItems[i].classList.remove('is-current');
         }
@@ -80,19 +96,29 @@ export default function() {
     };
 
     this.startSlide = function() {
-      setInterval(() => {
+      this.timerId = setInterval(() => {
         this.switchNext();
-      }, 4000);
+      }, 4500);
     };
 
     this.on = function() {
       for (var i = 0; i < this.itemLength; i++) {
         const index = i;
         this.pagerItems[index].addEventListener('click', (e)=> {
-          this.index = index;
-          for (var i = 0; i < this.itemLength; i++) {
-            this.imageItems[i].classList.remove('is-animate');
+          if (this.transition) {
+            return;
           }
+          this.transition = true;
+          const thisIndex = this.index;
+          this.imageItems[thisIndex].style.zIndex = '1';
+          setTimeout(()=> {
+            this.imageItems[thisIndex].style.transition = '';
+            this.imageItems[thisIndex].style.opacity = '';
+            this.imageItems[thisIndex].style.transform = '';
+            this.imageItems[thisIndex].classList.remove('is-visible');
+            this.transition = false;
+          }, 600)
+          this.index = index;
           this.setCurrent();
         }, false);
       }
