@@ -1,0 +1,86 @@
+.p-zoom-slider {
+  width: (1300 / 1800) * 100%;
+  position: relative;
+  margin: 100px auto;
+  &__title {
+    display: inline-block;
+    position: absolute;
+    left: 50%; top: -30px;
+    z-index: 10;
+    margin-top: 0;
+    margin-bottom: 0;
+    padding-left: 40px;
+    padding-right: 40px;
+    background-color: #fff;
+    text-align: center;
+    transform: translate(-50%);
+  }
+  &__item {
+    position: relative;
+  }
+  &__image {
+    width: 100%;
+    position: relative;
+    padding-top: 60%;
+    overflow: hidden;
+    img {
+      width: 100%;
+      position: absolute;
+      top: 0; left: 0;
+      opacity: 0;
+    }
+  }
+  &__text {
+    position: absolute;
+    left: 50px; bottom: 40px;
+    z-index: 10;
+    padding: 12px 20px;
+    background-color: #fff;
+    @include fontSize(20);
+    font-weight: 600;
+    line-height: 1.1;
+  }
+  &__pager {
+    display: flex;
+    justify-content: center;
+    margin-top: 40px;
+    &-item {
+      width: 12px;
+      height: 12px;
+      margin-left: 20px;
+      border-radius: 50%;
+      background-color: #eee;
+      cursor: pointer;
+    }
+  }
+  //
+  //interaction
+  //
+  @keyframes zoom {
+    0%    { transform: scale(1); opacity: 0;}
+    25%    { transform: scale(1.075); opacity: 1;}
+    50%   { transform: scale(1.15); opacity: 1;}
+    75%    { transform: scale(1.225); opacity: 1;}
+    100%  { transform: scale(1.3); opacity: 0;}
+  }
+  &__image {
+    overflow: hidden;
+    &-item {
+      z-index: 1;
+      &.is-animate {
+        z-index: 2;
+        animation-name: zoom;
+        animation-duration: 5s;
+        animation-fill-mode: forwards;
+        animation-timing-function: linear;
+      }
+    }
+  }
+  &__pager {
+    &-item {
+      &.is-current {
+        background-color: #555;
+      }
+    }
+  }
+}

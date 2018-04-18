@@ -1,0 +1,25 @@
+extends ./_layout/_page.pug
+
+block vars
+  -
+    var page = data.pages.index;
+
+block contentFixedBefore
+
+block contentStatic
+  .p-zoom-slider
+    h1.p-zoom-slider__title
+      |ZOOM SLIDER
+    .p-zoom-slider__wrap
+      .p-zoom-slider__item
+        .p-zoom-slider__image
+          //- img.p-zoom-slider__image-item(
+          //-   src="/img/photo01.jpg", alt=""
+          //-   )
+        .p-zoom-slider__text
+    .p-zoom-slider__pager
+      //- .p-zoom-slider__pager-item.is-current
+      //- .p-zoom-slider__pager-item
+      //- .p-zoom-slider__pager-item
+
+block contentFixedAfter

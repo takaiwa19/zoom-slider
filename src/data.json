@@ -1,0 +1,18 @@
+{
+  "meta": {
+    "websiteName": "",
+    "keywords": "",
+    "themeColor": "#ffffff",
+    "path": "zoom_slider"
+  },
+  "pages": {
+    "index": {
+      "id": "index",
+      "title": "",
+      "keywords": "",
+      "description": "",
+      "path": "/",
+      "ogpImg": "ogp.jpg"
+    }
+  }
+}
