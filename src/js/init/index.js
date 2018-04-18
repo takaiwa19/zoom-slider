@@ -4,15 +4,15 @@ export default function() {
   var slideItems = [
     {
       src : '/zoom_slider/img/photo01.jpg',
-      text : 'captionが入りますcaptionが入ります'
+      text : '<span>captionが入ります</span><br class="u-dn-more-mobile"><span>captionが入ります</span><br class="u-dn-more-mobile"><span>captionが入ります</span>'
     },
     {
       src : '/zoom_slider/img/photo02.jpg',
-      text : 'textが入りますtextが入ります'
+      text : '<span>textが入ります</span><br class="u-dn-more-mobile"><span>textが入ります</span>'
     },
     {
       src : '/zoom_slider/img/photo03.jpg',
-      text : 'titleが入りますtitleが入ります'
+        text : '<span>titleが入ります</span><br class="u-dn-more-mobile"><span>titleが入ります</span>'
     }
   ]
 
@@ -41,10 +41,13 @@ export default function() {
     this.initImage = function() {
       var imageItems = '';
       for (var i = 0; i < this.itemLength; i++) {
-        imageItems += '<img src="' + this.slideItems[i].src + '", alt="" class="p-zoom-slider__image-item">';
+        imageItems += '<div class="p-zoom-slider__image-item"></div>';
       }
       this.Image.innerHTML = imageItems;
       this.imageItems = document.querySelectorAll('.p-zoom-slider__image-item');
+      for (var i = 0; i < this.imageItems.length; i++) {
+        this.imageItems[i].style.backgroundImage = 'url("' + this.slideItems[i].src + '")';
+      }
     };
 
     this.initPager = function() {
